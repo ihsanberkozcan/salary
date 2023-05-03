@@ -1,39 +1,37 @@
-
-.App{
+.App {
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
 }
 
-.light{
+.light {
   background: #dbdbdb;
   color: #1f1f1f;
 }
 
-.dark{
+.dark {
   background: #383838;
   color: #ffff;
 }
 
-
-.filter{
+.filter {
   margin: 30px;
 }
 
-.dropdown{
+.dropdown {
   margin-bottom: 10px;
   width: 300px;
   display: flex;
   justify-content: space-between;
 }
 
-.button{
+.button {
   width: 300px;
   height: 30px;
 }
 
-.table{
+.table {
   width: 80%;
 }
 
@@ -43,7 +41,8 @@ table {
   width: 100%;
 }
 
-td, th {
+td,
+th {
   border: 1px solid #a5a5a5;
   text-align: left;
   padding: 8px;
@@ -53,13 +52,12 @@ tr:nth-child(even) {
   background-color: #848484;
 }
 
-
-.Length{
+.Length {
   margin-bottom: 10px;
   display: flex;
   justify-content: end;
 }
 
-.Avarage{
+.Avarage {
   font-size: 20px;
 }

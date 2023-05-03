@@ -1,6 +1,4 @@
-function Dropdown({
-  question, name, options, handleChane,
-}) {
+function Dropdown({ question, name, options, handleChane }) {
   return (
     <div className="dropdown">
       <label htmlFor="option">{question}</label>
