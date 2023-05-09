@@ -11,8 +11,6 @@ function Avarage({ filteredData }) {
   };
 
   const totlaSalary = () => {
-    console.log(salaries);
-    console.log(filteredData);
     let total = 0;
     let avarageSlitedData = 0;
     const filteredNumber = salaries.length;

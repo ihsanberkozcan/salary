@@ -11,7 +11,7 @@ function Filter() {
   const { salaries } = useSelector((state) => state.salary);
   const { theme } = useSelector((state) => state.settings);
   const [dropdownSelectedValue, setDropdownSelectedValue] = useState({});
-
+  const [data, setData] = useState();
   const fetchedData = async () => {
     const data = await axios.get(
       "https://raw.githubusercontent.com/oncekiyazilimci/2023-yazilim-sektoru-maaslari/main/2023-yazilim-sektoru-maaslari-oncekiyazilimci.json"
@@ -20,6 +20,7 @@ function Filter() {
     data?.data?.RECORDS?.map((objectKey) => {
       turk = turk.filter((data) => data.currency === "₺ - Türk Lirası");
     });
+    setData(turk);
     dispatch(filteredSalary(turk));
   };
 
@@ -29,9 +30,8 @@ function Filter() {
 
   const calculateSalary = (e) => {
     e.preventDefault();
-    console.log(dropdownSelectedValue);
     const objectKeys = Object.keys(dropdownSelectedValue);
-    let filtered = salaries;
+    let filtered = data;
 
     objectKeys?.map((objectKey) => {
       filtered = filtered.filter(
