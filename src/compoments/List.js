@@ -10,7 +10,7 @@ function List() {
           <div className="Length">
             <span>{salaries.length}</span>
           </div>
-          <table>
+          <table className="salaryList">
             <tr>
               <th>Level</th>
               <th>Position</th>

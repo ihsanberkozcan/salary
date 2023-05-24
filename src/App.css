@@ -62,7 +62,12 @@ tr:nth-child(even) {
   font-size: 20px;
 }
 
-
-.option{
+.option {
   width: 200px;
+}
+
+.salaryList {
+  display: block;
+  overflow: scroll; 
+  overflow: auto; 
 }
