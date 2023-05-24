@@ -61,3 +61,8 @@ tr:nth-child(even) {
 .Avarage {
   font-size: 20px;
 }
+
+
+.option{
+  width: 200px;
+}
