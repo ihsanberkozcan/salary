@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import PropTypes from "prop-types";
 import Dropdown from "./Dropdown";
 import { datas } from "../data";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +7,6 @@ import { filteredSalary } from "../stores/salary";
 
 function Filter() {
   const dispatch = useDispatch();
-  const { salaries } = useSelector((state) => state.salary);
   const { theme } = useSelector((state) => state.settings);
   const [dropdownSelectedValue, setDropdownSelectedValue] = useState({});
   const [data, setData] = useState();
