@@ -53,6 +53,7 @@ export const datas = [
       "7 - 10 Yıl",
       "10 - 12 Yıl",
       "12 - 14 Yıl",
+      "15 Yıl ve üzeri"
     ],
   },
   {
