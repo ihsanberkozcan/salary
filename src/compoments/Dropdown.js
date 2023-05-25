@@ -1,13 +1,22 @@
+import { Input } from "@mantine/core";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+
 function Dropdown({ question, name, options, handleChane }) {
   return (
     <div className="dropdown">
-      <label htmlFor="option">{question}</label>
-      <select className="option" name={name} id="option" onChange={handleChane}>
-        <option value="">Please choose an option</option>
-        {options.map((option) => (
-          <option value={option}>{option}</option>
-        ))}
-      </select>
+      <Input.Wrapper label={question}>
+        <Input
+          name={name}
+          component="select"
+          rightSection={<MdOutlineKeyboardArrowDown />}
+          onChange={handleChane}
+        >
+          <option value="">Please choose an option</option>
+          {options.map((option) => (
+            <option value={option}>{option}</option>
+          ))}
+        </Input>
+      </Input.Wrapper>
     </div>
   );
 }

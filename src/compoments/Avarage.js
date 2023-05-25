@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { Text, Paper } from "@mantine/core";
 
 function Avarage({ filteredData }) {
   const { salaries } = useSelector((state) => state.salary);
@@ -27,7 +28,20 @@ function Avarage({ filteredData }) {
     if (filteredNumber) {
       return (
         <div className="Avarage">
-          Avarage : {Math.floor(total / filteredNumber)} TL
+          <Paper shadow="xs" p="xl">
+            <Text fw={500}> Avarage : </Text>
+            <Text
+              variant="gradient"
+              gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+              sx={{ fontFamily: "Greycliff CF, sans-serif" }}
+              ta="center"
+              fz="xl"
+              fw={700}
+            >
+              {Math.floor(total / filteredNumber)} TL
+            </Text>
+          </Paper>
+    
         </div>
       );
     }

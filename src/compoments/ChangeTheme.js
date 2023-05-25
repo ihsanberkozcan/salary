@@ -1,18 +1,20 @@
-import { useDispatch } from "react-redux";
-import { changeTheme } from "../stores/settings";
+import { BsSun } from "react-icons/bs";
+import { BsMoonStars } from "react-icons/bs";
+import { ActionIcon, useMantineColorScheme } from '@mantine/core';
 
 function ChangeTheme() {
-  const dispatch = useDispatch();
-
-  const handleThemeChange = (e) => {
-    dispatch(changeTheme(e.target.value));
-  };
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const dark = colorScheme === 'dark';
 
   return (
-    <select name="theme" onChange={handleThemeChange}>
-      <option value="light">light</option>
-      <option value="dark">dark</option>
-    </select>
+    <ActionIcon
+      variant="outline"
+      color={dark ? "yellow" : "blue"}
+      onClick={() => toggleColorScheme()}
+      title="Toggle color scheme"
+    >
+      {dark ? <BsSun size="1.1rem" /> : <BsMoonStars size="1.1rem" />}
+    </ActionIcon>
   );
 }
 

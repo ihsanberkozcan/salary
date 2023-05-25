@@ -4,6 +4,7 @@ import Dropdown from "./Dropdown";
 import { datas } from "../data";
 import { useDispatch, useSelector } from "react-redux";
 import { filteredSalary } from "../stores/salary";
+import { Button, Space, Box } from "@mantine/core";
 
 function Filter() {
   const dispatch = useDispatch();
@@ -53,20 +54,26 @@ function Filter() {
   };
 
   return (
-    <div className={theme === "light" ? "filter light" : "filter dark"}>
-      {datas.map((data) => (
-        <Dropdown
-          key={data.id}
-          name={data.name}
-          handleChane={handleChane}
-          question={data.question}
-          options={data.options}
-        />
-      ))}
-      <button className="button" onClick={calculateSalary}>
-        {" "}
-        Salary Filter{" "}
-      </button>
+    <div>
+      <Box w={300}>
+        {datas.map((data) => (
+          <>
+            <Dropdown
+              key={data.id}
+              name={data.name}
+              handleChane={handleChane}
+              question={data.question}
+              options={data.options}
+            />
+            <Space h="xs" />
+          </>
+        ))}
+        <Space h="sm" />
+        <Button color="violet" fullWidth size="md" onClick={calculateSalary}>
+          Salary Filter
+        </Button>
+        <Space h="md" />
+      </Box>
     </div>
   );
 }

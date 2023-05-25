@@ -1,41 +1,45 @@
 import { useSelector } from "react-redux";
-
+import { Space, Table, Text } from "@mantine/core";
 function List() {
   const { salaries } = useSelector((state) => state.salary);
-  const { theme } = useSelector((state) => state.settings);
   return (
-    <div className={theme === "light" ? "table light" : "table dark"}>
+    <div style={{ width: "100%", overflowX: "auto" }}>
       {salaries.length !== 0 ? (
         <div>
           <div className="Length">
-            <span>{salaries.length}</span>
+            <Text fz="xs">{salaries.length}</Text>
           </div>
-          <table className="salaryList">
-            <tr>
-              <th>Level</th>
-              <th>Position</th>
-              <th>Tech Stack</th>
-              <th>Experience</th>
-              <th>Company size</th>
-              <th>Work Type</th>
-              <th>City</th>
-              <th>Salary</th>
-            </tr>
-            {salaries.map((data) => (
+          <Space h="sm" />
+          <Table striped>
+            <thead>
               <tr>
-                <td>{data.level}</td>
-                <td>{data.position}</td>
-                <td>{data.tech_stack}</td>
-                <td>{data.experience}</td>
-                <td>{data.company_size}</td>
-                <td>{data.work_type}</td>
-                <td>{data.city}</td>
-                <td>
-                  {data.salary} {" TL"}
-                </td>
+                <th>Level</th>
+                <th>Position</th>
+                <th>Tech Stack</th>
+                <th>Experience</th>
+                <th>Company size</th>
+                <th>Work Type</th>
+                <th>City</th>
+                <th>Salary</th>
               </tr>
-            ))}
-          </table>
+            </thead>
+            <tbody>
+              {salaries.map((data) => (
+                <tr>
+                  <td>{data.level}</td>
+                  <td>{data.position}</td>
+                  <td>{data.tech_stack}</td>
+                  <td>{data.experience}</td>
+                  <td>{data.company_size}</td>
+                  <td>{data.work_type}</td>
+                  <td>{data.city}</td>
+                  <td>
+                    {data.salary} {" TL"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         </div>
       ) : (
         <>Loading...</>
