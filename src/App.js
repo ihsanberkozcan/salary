@@ -5,21 +5,20 @@ import { useSelector } from "react-redux";
 import {
   MantineProvider,
   ColorSchemeProvider,
-  ColorScheme,
   AppShell,
   Header,
   Container,
   Flex,
 } from "@mantine/core";
 
-import { useHotkeys, useLocalStorage } from "@mantine/hooks";
+
 
 import "./App.css";
 
-import Avarage from "./compoments/Avarage";
+import Average from "./compoments/Average";
 
 import Filter from "./compoments/Filter";
-import List from "./compoments/List";
+
 import AppHeader from "./compoments/AppHeader";
 
 function App() {
@@ -27,7 +26,8 @@ function App() {
   const [colorScheme, setColorScheme] = useState("light");
   const toggleColorScheme = (value) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
-
+    const { salaries2023 } = useSelector((state) => state.salary);
+    const { salaries2024 } = useSelector((state) => state.salary);
   const { theme } = useSelector((state) => state.settings);
 
   return (
@@ -59,8 +59,10 @@ function App() {
           <Container size="xl">
             <Flex align="center" direction="column">
               <Filter setFilteredData={setFilteredData} />
-              <Avarage />
-              <List />
+              <div className="salaries">
+                <Average year="2023" salaries={salaries2023}/>
+                <Average year="2024" salaries={salaries2024}/>
+              </div>
             </Flex>
           </Container>
         </AppShell>

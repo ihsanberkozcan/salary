@@ -4,13 +4,14 @@ export const datas = [
 
     question: "Level",
     name: "level",
-    options: ["Junior", "Middle", "Senior"],
+    options: ["All", "Junior", "Middle", "Senior"],
   },
   {
     id: 2,
     question: "Position",
     name: "position",
     options: [
+      "All",
       "Front-end Developer",
       "Back-end Developer",
       "Full Stack Developer",
@@ -45,6 +46,7 @@ export const datas = [
     question: "Experience",
     name: "experience",
     options: [
+      "All",
       "0 - 1 Yıl",
       "1 - 3 Yıl",
       "3 - 5 Yıl",
@@ -61,6 +63,7 @@ export const datas = [
     question: "City",
     name: "city",
     options: [
+      "All",
       "İstanbul",
       "Ankara",
       "İzmir",
@@ -148,13 +151,14 @@ export const datas = [
     id: 5,
     question: "Work Type",
     name: "work_type",
-    options: ["Remote", "Hibrit (Ofis + Remote)", "Ofis"],
+    options: ["All","Remote", "Hibrit (Ofis + Remote)", "Ofis"],
   },
   {
     id: 6,
     question: "Company size",
     name: "company_size",
     options: [
+      "All",
       "1 - 5 Kişi",
       "5 - 10 Kişi",
       "10 - 20 Kişi",

@@ -3,24 +3,35 @@ import axios from "axios";
 import Dropdown from "./Dropdown";
 import { datas } from "../data";
 import { useDispatch, useSelector } from "react-redux";
-import { filteredSalary } from "../stores/salary";
+import { filteredSalary2023, filteredSalary2024 } from "../stores/salary";
 import { Button, Space, Box } from "@mantine/core";
 
 function Filter() {
   const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.settings);
   const [dropdownSelectedValue, setDropdownSelectedValue] = useState({});
-  const [data, setData] = useState();
+  const [data2023, setData2023] = useState([]);
+  const [data2024, setData2024] = useState([]);
   const fetchedData = async () => {
-    const data = await axios.get(
+    const salary2023 = await axios.get(
       "https://raw.githubusercontent.com/oncekiyazilimci/2023-yazilim-sektoru-maaslari/main/2023-yazilim-sektoru-maaslari-oncekiyazilimci.json"
     );
-    let turk = data.data.RECORDS;
-    data?.data?.RECORDS?.map((objectKey) => {
-      turk = turk.filter((data) => data.currency === "₺ - Türk Lirası");
+    const salary2024 = await axios.get(
+      "https://raw.githubusercontent.com/oncekiyazilimci/2024-yazilim-sektoru-maaslari/main/2024-yazilim-sektoru-maaslari-onceki-yazilimci.json"
+    );
+    let turkLirasi2023 = salary2023.data.RECORDS;
+    salary2023?.data?.RECORDS?.map((objectKey) => {
+      turkLirasi2023 = turkLirasi2023.filter((data) => data.currency === "₺ - Türk Lirası");
     });
-    setData(turk);
-    dispatch(filteredSalary(turk));
+
+    let turkLirasi2024 = salary2024.data.RECORDS;
+    salary2024?.data?.RECORDS?.map((objectKey) => {
+      turkLirasi2024 = turkLirasi2024.filter((data) => data.currency === "₺ - Türk Lirası");
+    });
+    setData2023(turkLirasi2023);
+    setData2024(turkLirasi2024);
+    dispatch(filteredSalary2023(turkLirasi2023));
+    dispatch(filteredSalary2024(turkLirasi2024));
   };
 
   useEffect(() => {
@@ -30,25 +41,40 @@ function Filter() {
   const calculateSalary = (e) => {
     e.preventDefault();
     const objectKeys = Object.keys(dropdownSelectedValue);
-    let filtered = data;
+    console.log(objectKeys)
+    let filtered2023 = data2023;
+    let filtered2024 = data2024;
 
     objectKeys?.map((objectKey) => {
-      filtered = filtered.filter(
+      console.log(objectKey)
+      filtered2023 = filtered2023.filter(
         (data) => data[objectKey] === dropdownSelectedValue[objectKey]
       );
+
+    });
+    objectKeys?.map((objectKey) => {
+
+      filtered2024 = filtered2024.filter(
+        (data) => data[objectKey] === dropdownSelectedValue[objectKey]
+      );
+
+
     });
 
-    dispatch(filteredSalary(filtered));
+    dispatch(filteredSalary2023(filtered2023));
+    dispatch(filteredSalary2024(filtered2024));
   };
 
-  const handleChane = (e) => {
-    if (e.target.value && e.target.value !== "") {
+  const handleChane = (e, name) => {
+    console.log(e.target.value)
+    console.log(name)
+    if (e.target.value && e.target.value !== "" && e.target.value !=="All") {
       setDropdownSelectedValue({
         ...dropdownSelectedValue,
-        [e.target.name]: e.target.value,
+        [name]: e.target.value,
       });
     } else {
-      delete dropdownSelectedValue[e.target.name];
+      delete dropdownSelectedValue[name];
       setDropdownSelectedValue(dropdownSelectedValue);
     }
   };
