@@ -5,10 +5,12 @@ import { datas } from "../data";
 import { useDispatch, useSelector } from "react-redux";
 import { filteredSalary2023, filteredSalary2024 } from "../stores/salary";
 import { Button, Space, Box } from "@mantine/core";
+import { setLoading } from "../stores/loading";
 
 function Filter() {
   const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.settings);
+  const { loading } = useSelector((state) => state.loading);
   const [dropdownSelectedValue, setDropdownSelectedValue] = useState({});
   const [data2023, setData2023] = useState([]);
   const [data2024, setData2024] = useState([]);
@@ -32,6 +34,7 @@ function Filter() {
     setData2024(turkLirasi2024);
     dispatch(filteredSalary2023(turkLirasi2023));
     dispatch(filteredSalary2024(turkLirasi2024));
+    dispatch(setLoading(false))
   };
 
   useEffect(() => {
@@ -68,7 +71,7 @@ function Filter() {
   const handleChane = (e, name) => {
     console.log(e.target.value)
     console.log(name)
-    if (e.target.value && e.target.value !== "" && e.target.value !=="All") {
+    if (e.target.value && e.target.value !== "" && e.target.value !== "All") {
       setDropdownSelectedValue({
         ...dropdownSelectedValue,
         [name]: e.target.value,
@@ -81,7 +84,8 @@ function Filter() {
 
   return (
     <div>
-      <Box w={300}>
+
+      {!loading ? (<Box w={300}>
         {datas.map((data) => (
           <>
             <Dropdown
@@ -99,7 +103,8 @@ function Filter() {
           Salary Filter
         </Button>
         <Space h="md" />
-      </Box>
+      </Box>) : <div className="full"><span class="loader"></span></div>}
+
     </div>
   );
 }

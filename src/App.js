@@ -26,8 +26,8 @@ function App() {
   const [colorScheme, setColorScheme] = useState("light");
   const toggleColorScheme = (value) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
-    const { salaries2023 } = useSelector((state) => state.salary);
-    const { salaries2024 } = useSelector((state) => state.salary);
+  const { salaries2023 } = useSelector((state) => state.salary);
+  const { salaries2024 } = useSelector((state) => state.salary);
   const { theme } = useSelector((state) => state.settings);
 
   return (
@@ -57,13 +57,15 @@ function App() {
           })}
         >
           <Container size="xl">
-            <Flex align="center" direction="column">
-              <Filter setFilteredData={setFilteredData} />
-              <div className="salaries">
-                <Average year="2023" salaries={salaries2023}/>
-                <Average year="2024" salaries={salaries2024}/>
-              </div>
-            </Flex>
+              <Flex align="center" direction="column">
+                <Filter setFilteredData={setFilteredData} />
+                <div className="salaries">
+                  <Average year="2023" salaries={salaries2023} />
+                  <Average year="2024" salaries={salaries2024} />
+                </div>
+              </Flex>
+            
+
           </Container>
         </AppShell>
       </MantineProvider>

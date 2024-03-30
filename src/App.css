@@ -14,3 +14,31 @@
     margin-left: 10px;
     margin-bottom: 3px;
 }
+
+.full{
+    height: 90vh;
+    width: 90vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #c0c0c0;
+    border-bottom-color: #7950f2;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 
