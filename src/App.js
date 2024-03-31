@@ -60,15 +60,14 @@ function App() {
         >
           <Container size="xl">
             <Flex align="center" direction="column">
+              <Alert title="Source of the data" color="violet" mt="lg">
+                The data here is taken from a survey conducted by <a href="https://twitter.com/oncekiyazilimci"><Text span c="violet" inherit fw={500}>Önceki Yazılımcı</Text></a>. You can also read the <a href="https://oncekiyazilimci.medium.com/"><Text span c="violet" inherit fw={500}>articles</Text></a> he wrote on the Medium for more detailed information,
+              </Alert>
               <Filter setFilteredData={setFilteredData} />
               <div className="salaries">
                 <Average year="2023" salaries={salaries2023} />
                 <Average year="2024" salaries={salaries2024} />
               </div>
-
-              <Alert title="Source of the data" color="violet" mt="lg">
-                The data here is taken from a survey conducted by <a href="https://twitter.com/oncekiyazilimci"><Text span c="violet" inherit fw={500}>Önceki Yazılımcı</Text></a>. You can also read the <a href="https://oncekiyazilimci.medium.com/"><Text span c="violet" inherit fw={500}>articles</Text></a> he wrote on the Medium for more detailed information,
-              </Alert>
             </Flex>
 
 
