@@ -30,7 +30,10 @@ function App() {
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
   const { salaries2023 } = useSelector((state) => state.salary);
   const { salaries2024 } = useSelector((state) => state.salary);
+  const { salaries2025 } = useSelector((state) => state.salary);
   const { theme } = useSelector((state) => state.settings);
+
+  const { average2023,average2024 } = useSelector((state) => state.salary);
 
   return (
     <ColorSchemeProvider
@@ -66,7 +69,8 @@ function App() {
               <Filter setFilteredData={setFilteredData} />
               <div className="salaries">
                 <Average year="2023" salaries={salaries2023} />
-                <Average year="2024" salaries={salaries2024} />
+                <Average year="2024" salaries={salaries2024} lastYearAvarage={average2023}/>
+                <Average year="2025" salaries={salaries2025} lastYearAvarage={average2024}/>
               </div>
             </Flex>
 

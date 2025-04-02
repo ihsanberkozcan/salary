@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Text, Paper, Card } from "@mantine/core";
-import { setAverage2023 } from "../stores/salary";
+import { setAverage2023, setAverage2024 } from "../stores/salary";
 import { useState } from "react";
 
-function Average({ salaries, year }) {
+function Average({ salaries, year, lastYearAvarage }) {
   let IncreaseDecrease = 0;
   const dispatch = useDispatch();
-  const { average2023 } = useSelector((state) => state.salary);
+
   const converter = (text) => {
     try {
       return parseInt(text.replace(/\./g, "").replace(/ /g, ""));
@@ -18,8 +18,8 @@ function Average({ salaries, year }) {
   const totalSalary = () => {
     let total = 0;
     let averageSlitedData = 0;
-    const filteredNumber = salaries.length;
-    salaries.map((data) => {
+    const filteredNumber = salaries?.length;
+    salaries?.map((data) => {
       const splitedData = data.salary.split("-");
       if (splitedData.length === 2) {
         averageSlitedData =
@@ -28,11 +28,14 @@ function Average({ salaries, year }) {
         averageSlitedData = 150000;
       }
       total = total + averageSlitedData;
-       IncreaseDecrease = Math.floor((((Math.floor(total / filteredNumber)) - average2023) / average2023) * 100)
+       IncreaseDecrease = Math.floor((((Math.floor(total / filteredNumber)) - lastYearAvarage) / lastYearAvarage) * 100)
     });
 
     if (year == 2023 && filteredNumber) {
       dispatch(setAverage2023(Math.floor(total / filteredNumber)))
+    }
+    if (year == 2024 && filteredNumber) {
+      dispatch(setAverage2024(Math.floor(total / filteredNumber)))
     }
     if (filteredNumber) {
       return (
@@ -47,7 +50,7 @@ function Average({ salaries, year }) {
               </Text>
               <div className="increase-decrease">
               <Text fz="xs" fw={700} style={{ color: IncreaseDecrease > 0 ? "#12b886" : "#fa5252" }}>
-                  {year == 2024 ? <>{IncreaseDecrease}%</> : <>&#8203;</>} 
+                  {year == 2024 || year == 2025 ? <>{IncreaseDecrease}%</> : <>&#8203;</>} 
                 </Text>
               </div>
             </div>
