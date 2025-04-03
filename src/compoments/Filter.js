@@ -39,7 +39,6 @@ function Filter() {
       turkLirasi2025 = turkLirasi2025.filter((data) => data.currency === "₺ - Türk Lirası");
     });
 
-    console.log(turkLirasi2025);
     setData2023(turkLirasi2023);
     setData2024(turkLirasi2024);
     setData2025(turkLirasi2025);
@@ -62,7 +61,7 @@ function Filter() {
     let filtered2025 = data2025;
 
     objectKeys?.map((objectKey) => {
-      console.log(objectKey)
+  
       filtered2023 = filtered2023?.filter(
         (data) => data[objectKey] === dropdownSelectedValue[objectKey]
       );
