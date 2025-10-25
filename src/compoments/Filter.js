@@ -2,16 +2,20 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Dropdown from "./Dropdown";
 import { datas } from "../data";
-import { useDispatch, useSelector } from "react-redux";
-import { filteredSalary2023, filteredSalary2024, filteredSalary2025 } from "../stores/salary";
+
+
 import { Button, Space, Box } from "@mantine/core";
-import { setLoading } from "../stores/loading";
+import { useLoadingStore, useSalaryStore } from "../stores";
+
+
 
 function Filter() {
-  const dispatch = useDispatch();
-  const { theme } = useSelector((state) => state.settings);
-  const { loading } = useSelector((state) => state.loading);
+
+  const { loading, setLoading } = useLoadingStore();
   const [dropdownSelectedValue, setDropdownSelectedValue] = useState({});
+  const { filteredSalary2023, filteredSalary2024, filteredSalary2025 } =
+    useSalaryStore();
+
   const [data2023, setData2023] = useState([]);
   const [data2024, setData2024] = useState([]);
   const [data2025, setData2025] = useState([]);
@@ -23,29 +27,37 @@ function Filter() {
       "https://raw.githubusercontent.com/oncekiyazilimci/2024-yazilim-sektoru-maaslari/main/2024-yazilim-sektoru-maaslari-onceki-yazilimci.json"
     );
 
-    const salary2025 = await axios.get("https://raw.githubusercontent.com/oncekiyazilimci/2025-yazilim-sektoru-maaslari/refs/heads/main/2025-yazilim-sektoru-maaslari-onceki-yazilimci.json")
-    
+    const salary2025 = await axios.get(
+      "https://raw.githubusercontent.com/oncekiyazilimci/2025-yazilim-sektoru-maaslari/refs/heads/main/2025-yazilim-sektoru-maaslari-onceki-yazilimci.json"
+    );
+
     let turkLirasi2023 = salary2023.data.RECORDS;
     salary2023?.data?.RECORDS?.map((objectKey) => {
-      turkLirasi2023 = turkLirasi2023.filter((data) => data.currency === "₺ - Türk Lirası");
+      turkLirasi2023 = turkLirasi2023.filter(
+        (data) => data.currency === "₺ - Türk Lirası"
+      );
     });
 
     let turkLirasi2024 = salary2024.data.RECORDS;
     salary2024?.data?.RECORDS?.map((objectKey) => {
-      turkLirasi2024 = turkLirasi2024.filter((data) => data.currency === "₺ - Türk Lirası");
+      turkLirasi2024 = turkLirasi2024.filter(
+        (data) => data.currency === "₺ - Türk Lirası"
+      );
     });
     let turkLirasi2025 = salary2025.data;
     salary2025?.data?.RECORDS?.map((objectKey) => {
-      turkLirasi2025 = turkLirasi2025.filter((data) => data.currency === "₺ - Türk Lirası");
+      turkLirasi2025 = turkLirasi2025.filter(
+        (data) => data.currency === "₺ - Türk Lirası"
+      );
     });
 
     setData2023(turkLirasi2023);
     setData2024(turkLirasi2024);
     setData2025(turkLirasi2025);
-    dispatch(filteredSalary2023(turkLirasi2023));
-    dispatch(filteredSalary2024(turkLirasi2024));
-    dispatch(filteredSalary2025(turkLirasi2025));
-    dispatch(setLoading(false))
+    filteredSalary2023(turkLirasi2023);
+    filteredSalary2024(turkLirasi2024);
+    filteredSalary2025(turkLirasi2025);
+    setLoading();
   };
 
   useEffect(() => {
@@ -61,19 +73,14 @@ function Filter() {
     let filtered2025 = data2025;
 
     objectKeys?.map((objectKey) => {
-  
       filtered2023 = filtered2023?.filter(
         (data) => data[objectKey] === dropdownSelectedValue[objectKey]
       );
-
     });
     objectKeys?.map((objectKey) => {
-
       filtered2024 = filtered2024?.filter(
         (data) => data[objectKey] === dropdownSelectedValue[objectKey]
       );
-
-
     });
     objectKeys?.map((objectKey) => {
       filtered2025 = filtered2025?.filter(
@@ -81,13 +88,12 @@ function Filter() {
       );
     });
 
-    dispatch(filteredSalary2023(filtered2023));
-    dispatch(filteredSalary2024(filtered2024));
-    dispatch(filteredSalary2025(filtered2025));
+    filteredSalary2023(filtered2023);
+    filteredSalary2024(filtered2024);
+    filteredSalary2025(filtered2025);
   };
 
   const handleChane = (e, name) => {
-
     if (e.target.value && e.target.value !== "" && e.target.value !== "All") {
       setDropdownSelectedValue({
         ...dropdownSelectedValue,
@@ -101,27 +107,31 @@ function Filter() {
 
   return (
     <div>
-
-      {!loading ? (<Box w={300}>
-        {datas.map((data) => (
-          <>
-            <Dropdown
-              key={data.id}
-              name={data.name}
-              handleChane={handleChane}
-              question={data.question}
-              options={data.options}
-            />
-            <Space h="xs" />
-          </>
-        ))}
-        <Space h="sm" />
-        <Button color="violet" fullWidth size="md" onClick={calculateSalary}>
-          Salary Filter
-        </Button>
-        <Space h="md" />
-      </Box>) : <div className="full"><span class="loader"></span></div>}
-
+      {!loading ? (
+        <Box w={300}>
+          {datas.map((data) => (
+            <>
+              <Dropdown
+                key={data.id}
+                name={data.name}
+                handleChane={handleChane}
+                question={data.question}
+                options={data.options}
+              />
+              <Space h="xs" />
+            </>
+          ))}
+          <Space h="sm" />
+          <Button color="violet" fullWidth size="md" onClick={calculateSalary}>
+            Salary Filter
+          </Button>
+          <Space h="md" />
+        </Box>
+      ) : (
+        <div className="full">
+          <span class="loader"></span>
+        </div>
+      )}
     </div>
   );
 }

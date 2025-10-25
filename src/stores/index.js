@@ -1,15 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
+// Re-export all named exports from individual store modules.
+// Using `export *` forwards any named exports and is more robust
+// when the implementation changes.
+export * from './salaryStore'
+export * from './loadingStore'
 
-import salary from "./salary";
-import settings from "./settings";
-import loading from "./loading";
-
-const store = configureStore({
-  reducer: {
-    salary,
-    settings,
-    loading,
-  },
-});
-
-export default store;
