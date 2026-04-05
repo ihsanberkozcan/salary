@@ -1,13 +1,11 @@
-
-import { Text, Paper, Card } from "@mantine/core";
-
+import { Text, Card } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useSalaryStore } from "../stores";
 
 function Average({ salaries = [], year, lastYearAvarage }) {
   const [stats, setStats] = useState({ mean: 0, median: 0, mode: 0, count: 0 });
+  const { setAverage2023, setAverage2024, setAverage2025 } = useSalaryStore();
 
-  const { setAverage2023, setAverage2024 } = useSalaryStore();
   const converter = (text) => {
     if (!text) return 0;
     try {
@@ -30,7 +28,7 @@ function Average({ salaries = [], year, lastYearAvarage }) {
         if (splitedData.length === 2) {
           return (converter(splitedData[0]) + converter(splitedData[1])) / 2 + 0.5;
         } else if (splitedData.length === 1) {
-          return 150000;
+          return converter(splitedData[0]);
         }
         return null;
       })
@@ -67,54 +65,62 @@ function Average({ salaries = [], year, lastYearAvarage }) {
 
     setStats({ mean, median, mode, count });
 
-    // update global store averages once per change
     if (count) {
       if (year === 2023) setAverage2023(mean);
       if (year === 2024) setAverage2024(mean);
+      if (year === 2025) setAverage2025(mean);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [salaries, year]);
 
   if (!stats.count) return null;
 
   return (
-    <div className="Average">
-      <Card withBorder radius="md" padding="xl">
-        <Text fz="xs" tt="uppercase" fw={700} c="dimmed">
-          {year} Average
-        </Text>
-        <div className="averageMoney">
-          <div className="salary">
-            <Text fw={400} fz="lg">
-              Mean:
-            </Text>
-            <Text fw={700} fz="xl">
-              {stats.mean.toLocaleString("tr-TR")} TL
-            </Text>
-          </div>
-          <div className="salary">
-            <Text fw={400} fz="lg">
-              Median:
-            </Text>
+    <Card
+      withBorder
+      radius="md"
+      padding="lg"
+      sx={(theme) => ({
+        flex: "1 1 100%", 
+        maxWidth: "100%",
+        boxSizing: "border-box",
+  
+      })}
+    >
+      <Text fz="md" tt="uppercase" fw={700} c="dimmed">
+        {year} Average
+      </Text>
 
-            <Text fw={700} fz="xl">
-              {stats.median.toLocaleString("tr-TR")} TL
-            </Text>
-          </div>
-          <div className="salary">
-            <Text fw={400} fz="lg">
-              Mode:
-            </Text>
-            <Text fw={700} fz="xl">
-              {stats.mode.toLocaleString("tr-TR")} TL
-            </Text>
-          </div>
+      <div className="averageMoney" style={{ display: "flex", flexWrap: "wrap", gap: "2px" }}>
+        <div className="salary" style={{ flex: "1 1 100%" }}>
+          <Text fw={400} fz="md">
+            Mean:
+          </Text>
+          <Text fw={700} fz="md">
+            {stats.mean.toLocaleString("tr-TR")} TL
+          </Text>
         </div>
-        <Text fz="xs" fw={700} c="dimmed">
-          (Average salary of {stats.count} users)
-        </Text>
-      </Card>
-    </div>
+        <div className="salary" style={{ flex: "1 1 100%" }}>
+          <Text fw={400} fz="md">
+            Median:
+          </Text>
+          <Text fw={700} fz="md">
+            {stats.median.toLocaleString("tr-TR")} TL
+          </Text>
+        </div>
+        <div className="salary" style={{ flex: "1 1 100%" }}>
+          <Text fw={400} fz="md">
+            Mode:
+          </Text>
+          <Text fw={700} fz="md">
+            {stats.mode.toLocaleString("tr-TR")} TL
+          </Text>
+        </div>
+      </div>
+
+      <Text fz="xs" fw={700} c="dimmed" mt="5px">
+        (Average salary of {stats.count} users)
+      </Text>
+    </Card>
   );
 }
 
