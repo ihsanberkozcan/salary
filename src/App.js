@@ -100,25 +100,23 @@ function App() {
                   wrap="wrap"
                   justify="flex-start"
                 >
-                  <Average year="2023" salaries={salaries2023} />
-
+                  <Average
+                    year="2026"
+                    salaries={salaries2026}
+                    lastYearAvarage={average2025}
+                  />
+                  <Average
+                    year="2025"
+                    salaries={salaries2025}
+                    lastYearAvarage={average2024}
+                  />
                   <Average
                     year="2024"
                     salaries={salaries2024}
                     lastYearAvarage={average2023}
                   />
 
-                  <Average
-                    year="2025"
-                    salaries={salaries2025}
-                    lastYearAvarage={average2024}
-                  />
-
-                  <Average
-                    year="2026"
-                    salaries={salaries2026}
-                    lastYearAvarage={average2025}
-                  />
+                  <Average year="2023" salaries={salaries2023} />
                 </Flex>
               </Grid.Col>
 
